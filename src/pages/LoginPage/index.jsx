@@ -1,19 +1,21 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
 import { login, getMe } from "../../WebAPI";
 import { AuthContext } from "../../context";
+import SectionWrapper from "../../components/SectionWrapper";
 
-const LoginWrapper = styled.section`
-  padding: 150px 150px 250px 150px;
+const LoginWrapper = styled(SectionWrapper)`
+  padding: 5% 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LoginContainer = styled.form`
   border: solid 1px #222831;
   width: 30%;
-  margin: 0 auto;
   padding: 30px 40px 40px 40px;
   text-align: center;
 `;
@@ -96,7 +98,6 @@ export default function LoginPage() {
 
   return (
     <>
-      <Banner />
       <LoginWrapper>
         <LoginContainer onSubmit={handleSubmit}>
           <LoginTitle>Log In</LoginTitle>

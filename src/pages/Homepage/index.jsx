@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-import Banner from "../../components/Banner";
+import styled from "styled-components";
 import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
 import { getPosts } from "../../WebAPI";
 import SectionWrapper from "../../components/SectionWrapper";
 import Footer from "../../components/Footer";
+
+const HomePageFooter = styled(Footer)`
+  position: relative;
+`;
+
+const HomePageWrapper = styled(SectionWrapper)`
+  padding: 40px 100px;
+`;
 
 function getPreText(body) {
   if (body.length <= 300) return body;
@@ -18,8 +26,7 @@ function HomePage() {
   }, []);
   return (
     <>
-      <Banner />
-      <SectionWrapper>
+      <HomePageWrapper>
         <SectionTitle title="最新文章" />
         {posts.map((post) => {
           return (
@@ -35,8 +42,8 @@ function HomePage() {
             />
           );
         })}
-      </SectionWrapper>
-      <Footer />
+      </HomePageWrapper>
+      <HomePageFooter />
     </>
   );
 }

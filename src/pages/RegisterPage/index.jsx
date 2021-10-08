@@ -1,20 +1,22 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
 import { register } from "../../WebAPI";
 import { AuthContext } from "../../context";
 import { getMe } from "../../WebAPI";
+import SectionWrapper from "../../components/SectionWrapper";
 
-const RegisterWrapper = styled.section`
-  padding: 150px 150px 200px 150px;
+const RegisterWrapper = styled(SectionWrapper)`
+  padding: 5% 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const RegisterContainer = styled.form`
   border: solid 1px #222831;
   width: 30%;
-  margin: 0 auto;
   padding: 30px 40px 40px 40px;
   text-align: center;
 `;
@@ -98,7 +100,6 @@ export default function RegisterPage() {
 
   return (
     <>
-      <Banner />
       <RegisterWrapper>
         <RegisterContainer onSubmit={handleSubmit}>
           <RegisterTitle>Register</RegisterTitle>

@@ -10,6 +10,8 @@ import PostPage from "../../pages/PostPage";
 import Header from "../Header";
 import { AuthContext } from "../../context";
 import { getMe } from "../../WebAPI";
+import Banner from "../Banner";
+import EditPage from "../../pages/EditPage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,6 +29,7 @@ function App() {
       <AuthContext.Provider value={{ user, setUser }}>
         <Router>
           <Header />
+          <Banner />
           <Switch>
             <Route exact path="/">
               <HomePage />
@@ -45,6 +48,9 @@ function App() {
             </Route>
             <Route path="/post/:id">
               <PostPage />
+            </Route>
+            <Route path="/edit">
+              <EditPage />
             </Route>
           </Switch>
         </Router>

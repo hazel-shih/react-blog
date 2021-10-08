@@ -45,3 +45,39 @@ export const getMe = () => {
     },
   }).then((res) => res.json());
 };
+
+export const publishPost = (title, body) => {
+  const token = localStorage.getItem("token");
+  return fetch(`${BASE_URL}/posts`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+      body,
+    }),
+  }).then((res) => res.json());
+};
+
+export const editPost = (title, body) => {
+  const token = localStorage.getItem("token");
+  return fetch(`${BASE_URL}/posts`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+      body,
+    }),
+  }).then((res) => res.json());
+};
+
+export const getMyPosts = (userId) => {
+  return fetch(
+    `${BASE_URL}/posts?userId=${userId}&_sort=createdAt&_order=desc`
+  ).then((res) => res.json());
+};

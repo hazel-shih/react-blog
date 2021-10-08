@@ -7,6 +7,7 @@ import AboutPage from "../../pages/AboutPage";
 import RegisterPage from "../../pages/RegisterPage";
 import ListPage from "../../pages/ListPage";
 import PostPage from "../../pages/PostPage";
+import WritePage from "../../pages/WritePage";
 import Header from "../Header";
 import { AuthContext } from "../../context";
 import { getMe } from "../../WebAPI";
@@ -24,6 +25,7 @@ function App() {
       setUser(res.data);
     });
   }, []);
+
   return (
     <>
       <AuthContext.Provider value={{ user, setUser }}>
@@ -49,7 +51,10 @@ function App() {
             <Route path="/post/:id">
               <PostPage />
             </Route>
-            <Route path="/edit">
+            <Route exact path="/write">
+              <WritePage />
+            </Route>
+            <Route path="/edit/:id">
               <EditPage />
             </Route>
           </Switch>

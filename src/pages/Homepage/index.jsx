@@ -39,6 +39,7 @@ function HomePage() {
               author={post.userId.toString()}
               createdAt={new Date(post.createdAt).toLocaleString()}
               preText={`${getPreText(post.body)} ...`}
+              edit={false}
             />
           );
         })}

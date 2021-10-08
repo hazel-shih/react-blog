@@ -5,6 +5,7 @@ import ReadMoreButton from "../ReadMoreButton";
 import { Link } from "react-router-dom";
 import PostInfo from "../PostInfo";
 import PostTitle from "../PostTitle";
+import EditButton from "../EditButton";
 
 const PostContainer = styled.div`
   width: 100%;
@@ -53,6 +54,7 @@ function Post({
   createdAt,
   preText,
   linkPath,
+  edit,
 }) {
   return (
     <PostContainer>
@@ -60,10 +62,22 @@ function Post({
         <PostImg src={imgSrc} />
       </PostImgContainer>
       <PostPartContainer>
-        <PostTitle as={Link} to={`/post/${linkPath}`} children={title} />
+        <PostTitle
+          as={Link}
+          to={edit ? `/edit/${linkPath}` : `/post/${linkPath}`}
+          children={title}
+        />
         <PostInfo category={category} author={author} createdAt={createdAt} />
         <PostContent children={preText} />
-        <ReadMoreButton />
+        {edit ? (
+          <Link to={`/edit/${linkPath}`}>
+            <EditButton />
+          </Link>
+        ) : (
+          <Link to={`/post/${linkPath}`}>
+            <ReadMoreButton />
+          </Link>
+        )}
       </PostPartContainer>
     </PostContainer>
   );
@@ -76,6 +90,7 @@ Post.propTypes = {
   author: PropTypes.string,
   createdAt: PropTypes.string,
   content: PropTypes.string,
+  edit: PropTypes.bool,
 };
 
 export default Post;

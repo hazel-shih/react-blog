@@ -55,7 +55,6 @@ function Header() {
         <Logo to="/">Hazel's Blog</Logo>
         <NavBarLink to="/" children="首頁" />
         <NavBarLink to="/about" children="關於我" />
-        <NavBarLink to="/list" children="文章列表" />
       </NavBarPartContainer>
       <NavBarPartContainer>
         {!user ? (
@@ -65,7 +64,8 @@ function Header() {
           </>
         ) : (
           <>
-            <NavBarLink to="/edit" children="發布文章" />
+            <NavBarLink to="/list" children="管理我的文章" />
+            <NavBarLink to="/write" children="發布文章" />
             <NavBarLink to="/" onClick={handleLogout} children="登出" />
           </>
         )}

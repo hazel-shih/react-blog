@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Footer = styled.footer`
+const StyledFooter = styled.footer`
   width: 100%;
   height: 40px;
   background: linear-gradient(35deg, #f8f18d, #e1f5c4);
@@ -13,5 +13,13 @@ const Footer = styled.footer`
   position: absolute;
   bottom: 0;
 `;
+
+function Footer() {
+  return (
+    <StyledFooter>
+      Copyright © {new Date().getFullYear} Hazel's Blog All Rights Reserved.
+    </StyledFooter>
+  );
+}
 
 export default Footer;

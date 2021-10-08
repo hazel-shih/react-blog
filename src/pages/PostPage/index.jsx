@@ -3,7 +3,6 @@ import styled from "styled-components";
 import PostTitle from "../../components/PostTitle";
 import PostInfo from "../../components/PostInfo";
 import { getOnePost } from "../../WebAPI";
-import Banner from "../../components/Banner";
 import { useParams } from "react-router";
 import Footer from "../../components/Footer";
 
@@ -36,7 +35,6 @@ function PostPage() {
   }, [id]);
   return (
     <>
-      <Banner />
       {post && (
         <PostWrapper>
           <PostTitleInPostPage>{post[0].title}</PostTitleInPostPage>

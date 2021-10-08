@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SectionWrapper from "../../components/SectionWrapper";
 import Footer from "../../components/Footer";
 import { publishPost, getOnePost } from "../../WebAPI";
-import { useHistory, useParams } from "react-router";
+import { useHistory } from "react-router";
 
 const EditWrapper = styled(SectionWrapper)`
   padding: 100px 300px;
@@ -69,18 +69,14 @@ const AlertMsg = styled.div`
   text-align: right;
 `;
 
-export default function EditPage() {
-  const [post, setPost] = useState(null);
+export default function WritePage() {
+  const [post, setPost] = useState({
+    title: "",
+    body: "",
+  });
   const [errMsg, setErrMsg] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  const { id } = useParams();
-
-  useEffect(() => {
-    getOnePost(id).then((editPost) => {
-      setPost(editPost);
-    });
-  }, [id]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -120,37 +116,29 @@ export default function EditPage() {
 
   return (
     <>
-      {post && (
-        <EditWrapper>
-          <EditContainer>
-            <AlertMsg style={{ textAlign: "left" }}>
-              因為沒有處理編輯的
-              API，我只是做爽的，因此送出文章會是「再發布一篇新文章」喔！
-            </AlertMsg>
-            <EditTitle>編輯文章</EditTitle>
-            <EditForm>
-              <EditInputBlock>
-                <EditInput
-                  defaultValue={post[0].title}
-                  onChange={handleChange}
-                  name="title"
-                  placeholder="請輸入文章標題"
-                />
-              </EditInputBlock>
-              <EditInputBlock>
-                <EditTextArea
-                  defaultValue={post[0].body}
-                  onChange={handleChange}
-                  name="content"
-                  placeholder="請輸入文章內容"
-                />
-              </EditInputBlock>
-            </EditForm>
-            {errMsg && <AlertMsg>{errMsg}</AlertMsg>}
-            <EditSubmitBtn onClick={handleSubmit}>送出文章</EditSubmitBtn>
-          </EditContainer>
-        </EditWrapper>
-      )}
+      <EditWrapper>
+        <EditContainer>
+          <EditTitle>發表文章</EditTitle>
+          <EditForm>
+            <EditInputBlock>
+              <EditInput
+                onChange={handleChange}
+                name="title"
+                placeholder="請輸入文章標題"
+              />
+            </EditInputBlock>
+            <EditInputBlock>
+              <EditTextArea
+                onChange={handleChange}
+                name="content"
+                placeholder="請輸入文章內容"
+              />
+            </EditInputBlock>
+          </EditForm>
+          {errMsg && <AlertMsg>{errMsg}</AlertMsg>}
+          <EditSubmitBtn onClick={handleSubmit}>送出文章</EditSubmitBtn>
+        </EditContainer>
+      </EditWrapper>
       <Footer />
     </>
   );

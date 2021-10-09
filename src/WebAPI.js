@@ -83,6 +83,6 @@ export const getMyPosts = (userId, perPage, page) => {
   return fetch(
     `${BASE_URL}/posts?userId=${userId}&_sort=createdAt${
       perPage && `&_limit=${perPage}`
-    }&_order=desc${page && `&_page=${page}`}`
+    }${page && `&_page=${page}`}&_order=desc`
   ).then((res) => res.json());
 };

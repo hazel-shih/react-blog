@@ -14,10 +14,6 @@ const HomePageFooter = styled(Footer)`
   position: relative;
 `;
 
-const HomePageWrapper = styled(SectionWrapper)`
-  padding: 40px 100px;
-`;
-
 function getPreText(body) {
   if (body.length <= 300) return body;
   return body.slice(0, 300);
@@ -41,7 +37,7 @@ function HomePage() {
 
   return (
     <>
-      <HomePageWrapper>
+      <SectionWrapper>
         <SectionTitle title="最新文章" />
         {showPosts.map((post) => {
           return (
@@ -67,7 +63,7 @@ function HomePage() {
               </Link>
             ))}
         </PagesContainer>
-      </HomePageWrapper>
+      </SectionWrapper>
       <HomePageFooter />
     </>
   );

@@ -6,7 +6,7 @@ import { publishPost, getOnePost } from "../../WebAPI";
 import { useHistory } from "react-router";
 
 const EditWrapper = styled(SectionWrapper)`
-  padding: 100px 300px;
+  padding: 80px 300px 150px 300px;
 `;
 
 const EditContainer = styled.div`

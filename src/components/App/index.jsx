@@ -36,10 +36,16 @@ function App() {
             <Route exact path="/">
               <HomePage />
             </Route>
+            <Route path="/page/:pageNum">
+              <HomePage />
+            </Route>
             <Route path="/about">
               <AboutPage />
             </Route>
-            <Route path="/list">
+            <Route exact path="/list">
+              <ListPage />
+            </Route>
+            <Route path="/list/page/:pageNum">
               <ListPage />
             </Route>
             <Route path="/Register">

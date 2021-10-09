@@ -11,7 +11,7 @@ const PostContainer = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  margin-top: 40px;
+  margin-top: 50px;
   height: auto;
 `;
 

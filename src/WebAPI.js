@@ -1,9 +1,12 @@
 const BASE_URL = "https://student-json-api.lidemy.me";
 
-export const getPosts = () => {
-  return fetch(`${BASE_URL}/posts?_sort=createdAt&_order=desc`).then((res) =>
-    res.json()
-  );
+export const getPosts = (perPage, page) => {
+  return fetch(
+    `${BASE_URL}/posts?_sort=createdAt${perPage && `&_limit=${perPage}`}${
+      page && `&_page=${page}`
+    }
+    }&_order=desc`
+  ).then((res) => res.json());
 };
 
 export const getOnePost = (id) => {
@@ -76,8 +79,10 @@ export const editPost = (title, body) => {
   }).then((res) => res.json());
 };
 
-export const getMyPosts = (userId) => {
+export const getMyPosts = (userId, perPage, page) => {
   return fetch(
-    `${BASE_URL}/posts?userId=${userId}&_sort=createdAt&_order=desc`
+    `${BASE_URL}/posts?userId=${userId}&_sort=createdAt${
+      perPage && `&_limit=${perPage}`
+    }&_order=desc${page && `&_page=${page}`}`
   ).then((res) => res.json());
 };

@@ -5,6 +5,10 @@ import SectionTitle from "../../components/SectionTitle";
 import { getPosts } from "../../WebAPI";
 import SectionWrapper from "../../components/SectionWrapper";
 import Footer from "../../components/Footer";
+import PagesContainer from "../../Pagination/PagesContainer";
+import Page from "../../Pagination/Page";
+import { useParams, Link } from "react-router-dom";
+import { nanoid } from "nanoid";
 
 const HomePageFooter = styled(Footer)`
   position: relative;
@@ -20,15 +24,26 @@ function getPreText(body) {
 }
 
 function HomePage() {
+  const { pageNum } = useParams();
+  const [showPosts, setShowPosts] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(pageNum);
+  const perPage = 5;
+
   useEffect(() => {
     getPosts().then((posts) => setPosts(posts));
   }, []);
+
+  useEffect(() => {
+    getPosts(perPage, pageNum).then((posts) => setShowPosts(posts));
+    setCurrentPage(pageNum);
+  }, [pageNum]);
+
   return (
     <>
       <HomePageWrapper>
         <SectionTitle title="最新文章" />
-        {posts.map((post) => {
+        {showPosts.map((post) => {
           return (
             <Post
               key={post.id}
@@ -43,6 +58,15 @@ function HomePage() {
             />
           );
         })}
+        <PagesContainer>
+          {new Array(Math.ceil(posts.length / perPage))
+            .fill(null)
+            .map((item, index) => (
+              <Link key={nanoid()} to={`/page/${index + 1}`}>
+                <Page>{index + 1}</Page>
+              </Link>
+            ))}
+        </PagesContainer>
       </HomePageWrapper>
       <HomePageFooter />
     </>

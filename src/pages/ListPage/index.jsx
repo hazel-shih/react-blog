@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
@@ -6,6 +6,10 @@ import SectionWrapper from "../../components/SectionWrapper";
 import Footer from "../../components/Footer";
 import { getMyPosts } from "../../WebAPI";
 import { AuthContext } from "../../context";
+import { Link, useParams } from "react-router-dom";
+import { nanoid } from "nanoid";
+import PagesContainer from "../../Pagination/PagesContainer";
+import Page from "../../Pagination/Page";
 
 const ListPageWrapper = styled(SectionWrapper)`
   padding: 40px 100px;
@@ -18,16 +22,31 @@ function getPreText(body) {
 
 function ListPage() {
   const { user } = useContext(AuthContext);
+  const [showPosts, setShowPosts] = useState([]);
   const [posts, setPosts] = useState([]);
-  if (user) {
-    getMyPosts(user.id).then((posts) => setPosts(posts));
-  }
+  const perPage = 5;
+  const { pageNum } = useParams();
+
+  useEffect(() => {
+    if (user) {
+      getMyPosts(user.id).then((posts) => setPosts(posts));
+      getMyPosts(user.id, perPage).then((posts) => setShowPosts(posts));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (pageNum && user) {
+      getMyPosts(user.id, perPage, pageNum).then((posts) =>
+        setShowPosts(posts)
+      );
+    }
+  }, [pageNum, user]);
 
   return (
     <>
       <ListPageWrapper>
         <SectionTitle title="我的文章列表" />
-        {posts.map((post) => {
+        {showPosts.map((post) => {
           return (
             <Post
               key={post.id}
@@ -42,6 +61,15 @@ function ListPage() {
             />
           );
         })}
+        <PagesContainer>
+          {new Array(Math.ceil(posts.length / perPage))
+            .fill(null)
+            .map((item, index) => (
+              <Link key={nanoid()} to={`/list/page/${index + 1}`}>
+                <Page active={pageNum === index + 1}>{index + 1}</Page>
+              </Link>
+            ))}
+        </PagesContainer>
       </ListPageWrapper>
       <Footer />
     </>

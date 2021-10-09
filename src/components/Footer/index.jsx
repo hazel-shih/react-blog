@@ -17,7 +17,7 @@ const StyledFooter = styled.footer`
 function Footer() {
   return (
     <StyledFooter>
-      Copyright © {new Date().getFullYear} Hazel's Blog All Rights Reserved.
+      Copyright © {new Date().getFullYear()} Hazel's Blog All Rights Reserved.
     </StyledFooter>
   );
 }

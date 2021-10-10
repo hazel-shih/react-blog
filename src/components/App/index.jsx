@@ -13,6 +13,7 @@ import { AuthContext } from "../../context";
 import { getMe } from "../../WebAPI";
 import Banner from "../Banner";
 import EditPage from "../../pages/EditPage";
+import Footer from "../Footer";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -66,6 +67,7 @@ function App() {
           </Switch>
         </Router>
       </AuthContext.Provider>
+      <Footer />
     </>
   );
 }

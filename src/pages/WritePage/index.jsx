@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SectionWrapper from "../../components/SectionWrapper";
-import Footer from "../../components/Footer";
-import { publishPost, getOnePost } from "../../WebAPI";
+import { publishPost } from "../../WebAPI";
 import { useHistory } from "react-router";
 
 const EditWrapper = styled(SectionWrapper)`
@@ -139,7 +138,6 @@ export default function WritePage() {
           <EditSubmitBtn onClick={handleSubmit}>送出文章</EditSubmitBtn>
         </EditContainer>
       </EditWrapper>
-      <Footer />
     </>
   );
 }

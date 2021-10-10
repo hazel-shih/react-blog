@@ -62,11 +62,7 @@ function Post({
         <PostImg src={imgSrc} />
       </PostImgContainer>
       <PostPartContainer>
-        <PostTitle
-          as={Link}
-          to={edit ? `/edit/${linkPath}` : `/post/${linkPath}`}
-          children={title}
-        />
+        <PostTitle as={Link} to={`/post/${linkPath}`} children={title} />
         <PostInfo category={category} author={author} createdAt={createdAt} />
         <PostContent children={preText} />
         {edit ? (

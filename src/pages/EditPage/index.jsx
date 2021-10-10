@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SectionWrapper from "../../components/SectionWrapper";
-import Footer from "../../components/Footer";
 import { publishPost, getOnePost } from "../../WebAPI";
 import { useHistory, useParams } from "react-router";
 
@@ -151,7 +150,6 @@ export default function EditPage() {
           </EditContainer>
         </EditWrapper>
       )}
-      <Footer />
     </>
   );
 }

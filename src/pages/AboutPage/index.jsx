@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Footer from "../../components/Footer";
 import SectionWrapper from "../../components/SectionWrapper";
 import SectionTitle from "../../components/SectionTitle";
 import hazel from "../../img/hazel.jpg";
@@ -53,7 +52,6 @@ export default function AboutPage() {
           </TalkBubble>
         </AboutMeContainer>
       </AboutMeWrapper>
-      <Footer />
     </>
   );
 }

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
 import SectionWrapper from "../../components/SectionWrapper";
-import Footer from "../../components/Footer";
 import { getMyPosts } from "../../WebAPI";
 import { AuthContext } from "../../context";
 import { Link, useParams } from "react-router-dom";
@@ -66,12 +65,18 @@ function ListPage() {
             .fill(null)
             .map((item, index) => (
               <Link key={nanoid()} to={`/list/page/${index + 1}`}>
-                <Page active={pageNum === index + 1}>{index + 1}</Page>
+                <Page
+                  style={
+                    Number(pageNum) === index + 1
+                      ? { background: "#8bcdcd", color: "white" }
+                      : {}
+                  }
+                  children={index + 1}
+                />
               </Link>
             ))}
         </PagesContainer>
       </ListPageWrapper>
-      <Footer />
     </>
   );
 }

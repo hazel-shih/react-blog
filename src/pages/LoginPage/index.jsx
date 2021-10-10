@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import Footer from "../../components/Footer";
 import { login, getMe } from "../../WebAPI";
 import { AuthContext } from "../../context";
 import SectionWrapper from "../../components/SectionWrapper";
@@ -120,7 +119,6 @@ export default function LoginPage() {
           {errorMsg && <AlertMsg>哎呀！發生了一點錯誤：{errorMsg}</AlertMsg>}
         </LoginContainer>
       </LoginWrapper>
-      <Footer />
     </>
   );
 }

@@ -4,7 +4,6 @@ import PostTitle from "../../components/PostTitle";
 import PostInfo from "../../components/PostInfo";
 import { getOnePost } from "../../WebAPI";
 import { useParams } from "react-router";
-import Footer from "../../components/Footer";
 
 const PostWrapper = styled.section`
   padding: 80px 20%;
@@ -46,7 +45,6 @@ function PostPage() {
           <PostContentInPostPage>{post[0].body}</PostContentInPostPage>
         </PostWrapper>
       )}
-      <Footer />
     </>
   );
 }

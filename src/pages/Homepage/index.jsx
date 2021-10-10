@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
 import { getPosts } from "../../WebAPI";
 import SectionWrapper from "../../components/SectionWrapper";
-import Footer from "../../components/Footer";
 import PagesContainer from "../../Pagination/PagesContainer";
 import Page from "../../Pagination/Page";
 import { useParams, Link } from "react-router-dom";
 import { nanoid } from "nanoid";
-
-const HomePageFooter = styled(Footer)`
-  position: relative;
-`;
 
 function getPreText(body) {
   if (body.length <= 300) return body;
@@ -23,7 +17,6 @@ function HomePage() {
   const { pageNum } = useParams();
   const [showPosts, setShowPosts] = useState([]);
   const [posts, setPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(pageNum);
   const perPage = 5;
 
   useEffect(() => {
@@ -32,7 +25,6 @@ function HomePage() {
 
   useEffect(() => {
     getPosts(perPage, pageNum).then((posts) => setShowPosts(posts));
-    setCurrentPage(pageNum);
   }, [pageNum]);
 
   return (
@@ -59,12 +51,18 @@ function HomePage() {
             .fill(null)
             .map((item, index) => (
               <Link key={nanoid()} to={`/page/${index + 1}`}>
-                <Page>{index + 1}</Page>
+                <Page
+                  style={
+                    Number(pageNum) === index + 1
+                      ? { background: "#8bcdcd", color: "white" }
+                      : {}
+                  }
+                  children={index + 1}
+                />
               </Link>
             ))}
         </PagesContainer>
       </SectionWrapper>
-      <HomePageFooter />
     </>
   );
 }

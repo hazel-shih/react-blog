@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SectionWrapper from "../../components/SectionWrapper";
 import SectionTitle from "../../components/SectionTitle";
 import hazel from "../../img/hazel.jpg";
+import Footer from "../../components/Footer";
 
 const AboutMeWrapper = styled(SectionWrapper)`
   height: 100%;
@@ -52,6 +53,7 @@ export default function AboutPage() {
           </TalkBubble>
         </AboutMeContainer>
       </AboutMeWrapper>
+      <Footer />
     </>
   );
 }

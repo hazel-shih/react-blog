@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import "./style.css";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context";
+import { GetUserContext } from "../../components/App";
 
 const HeaderContainer = styled.header`
   height: 54px;
@@ -37,15 +37,25 @@ const NavBarLink = styled(Link)`
   }
 `;
 
+const isNowPathStyle = {
+  borderBottom: "2px solid #f8f18d",
+};
+
 function Header() {
   const { user, setUser } = useContext(AuthContext);
-  const history = useHistory();
+  const { isGettingUser } = useContext(GetUserContext);
+  const [nowPath, setNowPath] = useState("/");
   const location = useLocation();
+  const history = useHistory();
+
+  useEffect(() => {
+    setNowPath(location.pathname);
+  }, [location]);
 
   function handleLogout() {
     setUser(null);
     localStorage.setItem("token", "");
-    if (location.pathname !== "/") {
+    if (nowPath !== "/") {
       history.push("/");
     }
   }
@@ -54,23 +64,49 @@ function Header() {
     <HeaderContainer>
       <NavBarPartContainer>
         <Logo to="/">Hazel's Blog</Logo>
-        <NavBarLink to="/" children="首頁" />
-        <NavBarLink to="/about" children="關於我" />
+        <NavBarLink
+          style={nowPath === "/" ? isNowPathStyle : {}}
+          to="/"
+          children="首頁"
+        />
+        <NavBarLink
+          style={nowPath === "/about" ? isNowPathStyle : {}}
+          to="/about"
+          children="關於我"
+        />
       </NavBarPartContainer>
-      <NavBarPartContainer>
-        {!user ? (
-          <>
-            <NavBarLink to="/register" children="註冊" />
-            <NavBarLink to="/login" children="登入" />
-          </>
-        ) : (
-          <>
-            <NavBarLink to="/list" children="管理我的文章" />
-            <NavBarLink to="/write" children="發布文章" />
-            <NavBarLink to="/" onClick={handleLogout} children="登出" />
-          </>
-        )}
-      </NavBarPartContainer>
+      {!isGettingUser && (
+        <NavBarPartContainer>
+          {!user ? (
+            <>
+              <NavBarLink
+                style={nowPath === "/register" ? isNowPathStyle : {}}
+                to="/register"
+                children="註冊"
+              />
+              <NavBarLink
+                style={nowPath === "/login" ? isNowPathStyle : {}}
+                to="/login"
+                children="登入"
+              />
+            </>
+          ) : (
+            <>
+              <NavBarLink
+                style={nowPath === "/list" ? isNowPathStyle : {}}
+                to="/list"
+                children="管理我的文章"
+              />
+              <NavBarLink
+                style={nowPath === "/write" ? isNowPathStyle : {}}
+                to="/write"
+                children="發布文章"
+              />
+              <NavBarLink to="/" onClick={handleLogout} children="登出" />
+            </>
+          )}
+        </NavBarPartContainer>
+      )}
     </HeaderContainer>
   );
 }

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SectionWrapper from "../../components/SectionWrapper";
 import { publishPost } from "../../WebAPI";
 import { useHistory } from "react-router";
+import Footer from "../../components/Footer";
 
 const EditWrapper = styled(SectionWrapper)`
   padding: 80px 300px 150px 300px;
@@ -138,6 +139,7 @@ export default function WritePage() {
           <EditSubmitBtn onClick={handleSubmit}>送出文章</EditSubmitBtn>
         </EditContainer>
       </EditWrapper>
+      <Footer />
     </>
   );
 }

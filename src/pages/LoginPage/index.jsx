@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { login, getMe } from "../../WebAPI";
 import { AuthContext } from "../../context";
 import SectionWrapper from "../../components/SectionWrapper";
+import Footer from "../../components/Footer";
 
 const LoginWrapper = styled(SectionWrapper)`
   padding: 5% 100px;
@@ -119,6 +120,7 @@ export default function LoginPage() {
           {errorMsg && <AlertMsg>哎呀！發生了一點錯誤：{errorMsg}</AlertMsg>}
         </LoginContainer>
       </LoginWrapper>
+      <Footer />
     </>
   );
 }

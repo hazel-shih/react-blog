@@ -5,6 +5,7 @@ import { register } from "../../WebAPI";
 import { AuthContext } from "../../context";
 import { getMe } from "../../WebAPI";
 import SectionWrapper from "../../components/SectionWrapper";
+import Footer from "../../components/Footer";
 
 const RegisterWrapper = styled(SectionWrapper)`
   padding: 5% 100px;
@@ -128,6 +129,7 @@ export default function RegisterPage() {
           {errorMsg && <AlertMsg>哎呀！發生了一點錯誤：{errorMsg}</AlertMsg>}
         </RegisterContainer>
       </RegisterWrapper>
+      <Footer />
     </>
   );
 }

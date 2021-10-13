@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./style.css";
 import HomePage from "../../pages/Homepage";
@@ -13,17 +13,27 @@ import { AuthContext } from "../../context";
 import { getMe } from "../../WebAPI";
 import Banner from "../Banner";
 import EditPage from "../../pages/EditPage";
-import Footer from "../Footer";
+
+const GetUserContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState(null);
+  const [isGettingUser, setIsGettingUser] = useState(true);
+
   useEffect(() => {
-    if (!localStorage.getItem("token")) return;
+    if (!localStorage.getItem("token")) {
+      setIsGettingUser(false);
+      return;
+    }
+
     getMe().then((res) => {
       if (res.ok !== 1) {
         localStorage.setItem("token", "");
+        setIsGettingUser(false);
+        return;
       }
       setUser(res.data);
+      setIsGettingUser(false);
     });
   }, []);
 
@@ -31,7 +41,9 @@ function App() {
     <>
       <AuthContext.Provider value={{ user, setUser }}>
         <Router>
-          <Header />
+          <GetUserContext.Provider value={{ isGettingUser }}>
+            <Header />
+          </GetUserContext.Provider>
           <Banner />
           <Switch>
             <Route exact path="/">
@@ -67,9 +79,9 @@ function App() {
           </Switch>
         </Router>
       </AuthContext.Provider>
-      <Footer />
     </>
   );
 }
 
 export default App;
+export { GetUserContext };

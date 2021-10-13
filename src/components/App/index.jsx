@@ -40,7 +40,7 @@ function App() {
   return (
     <>
       <AuthContext.Provider value={{ user, setUser }}>
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <GetUserContext.Provider value={{ isGettingUser }}>
             <Header />
           </GetUserContext.Provider>

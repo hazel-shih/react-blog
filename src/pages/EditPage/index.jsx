@@ -86,8 +86,8 @@ export default function EditPage() {
   }, [history, isGettingUser, user]);
 
   useEffect(() => {
-    getOnePost(id).then((editPost) => {
-      setPost(editPost);
+    getOnePost(id).then((previousPost) => {
+      setPost(previousPost[0]);
     });
   }, [id]);
 
@@ -107,7 +107,7 @@ export default function EditPage() {
         return;
       }
       setIsLoading(false);
-      history.push("/");
+      history.push("/list");
     });
   }
 
@@ -133,15 +133,11 @@ export default function EditPage() {
         <>
           <EditWrapper>
             <EditContainer>
-              <AlertMsg style={{ textAlign: "left" }}>
-                因為沒有處理編輯的
-                API，我只是做爽的，因此送出文章會是「再發布一篇新文章」喔！
-              </AlertMsg>
               <EditTitle>編輯文章</EditTitle>
               <EditForm>
                 <EditInputBlock>
                   <EditInput
-                    defaultValue={post[0].title}
+                    defaultValue={post.title}
                     onChange={handleChange}
                     name="title"
                     placeholder="請輸入文章標題"
@@ -149,7 +145,7 @@ export default function EditPage() {
                 </EditInputBlock>
                 <EditInputBlock>
                   <EditTextArea
-                    defaultValue={post[0].body}
+                    defaultValue={post.body}
                     onChange={handleChange}
                     name="content"
                     placeholder="請輸入文章內容"

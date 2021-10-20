@@ -43,6 +43,11 @@ function ListPage() {
           return res.json();
         })
         .then((posts) => {
+          console.log(
+            posts.map((e) => {
+              return { title: e.title, createdAt: e.createdAt };
+            })
+          );
           setShowPosts(posts);
           setIsLoadingPosts(false);
         });

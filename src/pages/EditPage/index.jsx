@@ -4,8 +4,7 @@ import SectionWrapper from "../../components/SectionWrapper";
 import { editPost, getOnePost } from "../../WebAPI";
 import { useHistory, useParams } from "react-router";
 import Footer from "../../components/Footer";
-import { GetUserContext } from "../../context";
-
+import { AuthContext, GetUserContext } from "../../context";
 const EditWrapper = styled(SectionWrapper)`
   padding: 80px 300px 150px 300px;
 `;
@@ -77,6 +76,14 @@ export default function EditPage() {
   const history = useHistory();
   const { id } = useParams();
   const { isGettingUser } = useContext(GetUserContext);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!isGettingUser && !user) {
+      alert("登入後才能使用編輯文章功能喔！");
+      history.push("/");
+    }
+  }, [history, isGettingUser, user]);
 
   useEffect(() => {
     getOnePost(id).then((editPost) => {
@@ -122,7 +129,7 @@ export default function EditPage() {
 
   return (
     <>
-      {post && (
+      {user && post && (
         <>
           <EditWrapper>
             <EditContainer>

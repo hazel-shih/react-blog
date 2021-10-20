@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import SectionWrapper from "../../components/SectionWrapper";
-import { publishPost, getOnePost } from "../../WebAPI";
+import { editPost, getOnePost } from "../../WebAPI";
 import { useHistory, useParams } from "react-router";
 import Footer from "../../components/Footer";
+import { GetUserContext } from "../../context";
 
 const EditWrapper = styled(SectionWrapper)`
   padding: 80px 300px 150px 300px;
@@ -75,6 +76,7 @@ export default function EditPage() {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const { id } = useParams();
+  const { isGettingUser } = useContext(GetUserContext);
 
   useEffect(() => {
     getOnePost(id).then((editPost) => {
@@ -91,7 +93,7 @@ export default function EditPage() {
       setIsLoading(false);
       return;
     }
-    publishPost(post.title, post.body).then((data) => {
+    editPost(id, post.title, post.body).then((data) => {
       if (data.ok === 0) {
         setErrMsg(`發生了一點錯誤：${data.message}`);
         setIsLoading(false);

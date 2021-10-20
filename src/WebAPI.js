@@ -6,7 +6,7 @@ export const getPosts = (perPage, page) => {
       page && `&_page=${page}`
     }
     }&_order=desc`
-  ).then((res) => res.json());
+  );
 };
 
 export const getOnePost = (id) => {
@@ -64,9 +64,9 @@ export const publishPost = (title, body) => {
   }).then((res) => res.json());
 };
 
-export const editPost = (title, body) => {
+export const editPost = (id, title, body) => {
   const token = localStorage.getItem("token");
-  return fetch(`${BASE_URL}/posts`, {
+  return fetch(`${BASE_URL}/posts/${id}`, {
     method: "PUT",
     headers: {
       authorization: `Bearer ${token}`,
@@ -75,6 +75,7 @@ export const editPost = (title, body) => {
     body: JSON.stringify({
       title,
       body,
+      createdAt: new Date().toLocaleString(),
     }),
   }).then((res) => res.json());
 };
@@ -84,5 +85,5 @@ export const getMyPosts = (userId, perPage, page) => {
     `${BASE_URL}/posts?userId=${userId}&_sort=createdAt${
       perPage && `&_limit=${perPage}`
     }${page && `&_page=${page}`}&_order=desc`
-  ).then((res) => res.json());
+  );
 };

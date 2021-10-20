@@ -1,50 +1,49 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
 import SectionWrapper from "../../components/SectionWrapper";
 import { getMyPosts } from "../../WebAPI";
 import { AuthContext } from "../../context";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { nanoid } from "nanoid";
 import PagesContainer from "../../Pagination/PagesContainer";
 import Page from "../../Pagination/Page";
 import Loading from "../../components/Loading/loading";
 import Footer from "../../components/Footer";
+import { getPreText } from "../../utils";
+import { POST_PER_PAGE as perPage } from "../../constants";
 
 const ListPageWrapper = styled(SectionWrapper)`
   padding: 40px 100px;
 `;
 
-function getPreText(body) {
-  if (body.length <= 300) return body;
-  return body.slice(0, 300);
-}
-
 function ListPage() {
   const { user } = useContext(AuthContext);
   const [showPosts, setShowPosts] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
-
-  const perPage = 5;
   const { pageNum } = useParams();
+  const { pathname } = useLocation();
+  const totalPostCount = useRef(0);
 
   useEffect(() => {
     if (user) {
-      getMyPosts(user.id).then((posts) => setPosts(posts));
-      getMyPosts(user.id, perPage).then((posts) => setShowPosts(posts));
-      setIsLoadingPosts(false);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (pageNum && user) {
-      getMyPosts(user.id, perPage, pageNum).then((posts) => {
-        setShowPosts(posts);
-      });
+      console.log("has user");
+      getMyPosts(user.id, perPage, pageNum)
+        .then((res) => {
+          totalPostCount.current = res.headers.get("x-total-count");
+          return res.json();
+        })
+        .then((posts) => {
+          setShowPosts(posts);
+          setIsLoadingPosts(false);
+        });
     }
   }, [pageNum, user]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>
@@ -70,7 +69,7 @@ function ListPage() {
               );
             })}
             <PagesContainer>
-              {new Array(Math.ceil(posts.length / perPage))
+              {new Array(Math.ceil(totalPostCount.current / perPage))
                 .fill(null)
                 .map((item, index) => (
                   <Link key={nanoid()} to={`/list/page/${index + 1}`}>

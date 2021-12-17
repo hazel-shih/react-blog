@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { MEDIA_QUERY_MD } from "../../constants";
 
 const PostInfoContainer = styled.div`
   display: flex;
@@ -8,6 +9,10 @@ const PostInfoContainer = styled.div`
   font-family: "Noto Sans TC", sans-serif;
   font-size: 12px;
   align-items: center;
+  ${MEDIA_QUERY_MD} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const PostInfoCategory = styled.div`
@@ -16,11 +21,17 @@ const PostInfoCategory = styled.div`
   background-color: #222831;
   margin-right: 10px;
   vertical-align: middle;
+  ${MEDIA_QUERY_MD} {
+    margin-bottom: 3px;
+  }
 `;
 
 const PostInfoAuthor = styled.p`
   margin-right: 10px;
   font-weight: bold;
+  ${MEDIA_QUERY_MD} {
+    margin-bottom: 3px;
+  }
 `;
 
 const PostInfoTime = styled.p`

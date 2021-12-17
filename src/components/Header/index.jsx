@@ -59,13 +59,13 @@ function Header() {
     setNowPath(location.pathname);
   }, [location]);
 
-  function handleLogout() {
+  const handleLogout = () => {
     setUser(null);
     localStorage.setItem("token", "");
     if (nowPath !== "/") {
       history.push("/");
     }
-  }
+  };
 
   return (
     <HeaderContainer>

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import PostInfo from "../PostInfo";
 import PostTitle from "../PostTitle";
 import EditButton from "../EditButton";
+import { MEDIA_QUERY_MD } from "../../constants";
 
 const PostContainer = styled.div`
   width: 100%;
@@ -18,6 +19,9 @@ const PostContainer = styled.div`
 const PostImgContainer = styled.div`
   max-width: 350px;
   height: auto;
+  ${MEDIA_QUERY_MD} {
+    max-width: 300px;
+  }
 `;
 
 const PostImg = styled.img`

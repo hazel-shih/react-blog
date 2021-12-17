@@ -18,7 +18,7 @@ function HomePage() {
   const [showPosts, setShowPosts] = useState([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   const totalPostCount = useRef(0);
-
+  console.log(showPosts);
   useEffect(() => {
     getPosts(perPage, pageNum)
       .then((res) => {
@@ -51,7 +51,7 @@ function HomePage() {
                   title={post.title}
                   linkPath={post.id}
                   category="單純mur-mur"
-                  author={post.userId.toString()}
+                  author={post.user.nickname}
                   createdAt={new Date(post.createdAt).toLocaleString()}
                   preText={`${getPreText(post.body)} ...`}
                   edit={false}

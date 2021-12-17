@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { AuthContext } from "../../context";
 
 const NavContainer = styled.div`
   display: none;
@@ -62,6 +63,8 @@ const NavLink = styled(Link)`
 
 function HamburgerMenu() {
   const [open, setOpen] = useState(false);
+  const { user, setUser } = useContext(AuthContext);
+  const history = useHistory();
   const menuRef = useRef();
   const burgerRef = useRef();
   const handleBurgerClick = () => setOpen(!open);
@@ -85,6 +88,14 @@ function HamburgerMenu() {
       document.removeEventListener("mousedown", checkIfClickOutside);
     };
   }, [open, checkIfClickOutside]);
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.setItem("token", "");
+    setOpen(false);
+    history.push("/");
+  };
+
   return (
     <>
       <NavContainer onClick={handleBurgerClick} ref={burgerRef}>
@@ -96,24 +107,30 @@ function HamburgerMenu() {
       </NavContainer>
       {open && (
         <LinkContainer ref={menuRef}>
-          <NavLink onClick={handleCloseMenu} to="/filter">
-            註冊
-          </NavLink>
-          <NavLink onClick={handleCloseMenu} to="/read/list">
-            登入
-          </NavLink>
-          <NavLink onClick={handleCloseMenu} to="/post/list">
-            管理我的文章
-          </NavLink>
-          <NavLink onClick={handleCloseMenu} to="/post/list">
-            發布文章
-          </NavLink>
-          <NavLink onClick={handleCloseMenu} to="/post/list">
+          <NavLink onClick={handleCloseMenu} to="/about">
             關於我
           </NavLink>
-          <NavLink onClick={handleCloseMenu} to="/post/list">
-            登出
-          </NavLink>
+          {!user && (
+            <>
+              <NavLink onClick={handleCloseMenu} to="/register">
+                註冊
+              </NavLink>
+              <NavLink onClick={handleCloseMenu} to="/login">
+                登入
+              </NavLink>
+            </>
+          )}
+          {user && (
+            <>
+              <NavLink onClick={handleCloseMenu} to="/list">
+                管理我的文章
+              </NavLink>
+              <NavLink onClick={handleCloseMenu} to="/write">
+                發布文章
+              </NavLink>
+              <NavLink to="/" onClick={handleLogout} children="登出" />
+            </>
+          )}
         </LinkContainer>
       )}
     </>

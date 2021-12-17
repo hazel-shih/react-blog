@@ -1,73 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import SectionWrapper from "../../components/SectionWrapper";
 import { editPost, getOnePost } from "../../WebAPI";
 import { useHistory, useParams } from "react-router";
 import Footer from "../../components/Footer";
 import { AuthContext, GetUserContext } from "../../context";
-const EditWrapper = styled(SectionWrapper)`
-  padding: 80px 300px 150px 300px;
-`;
-
-const EditContainer = styled.div`
-  border: solid 1px #818285;
-  padding: 30px 30px 70px 30px;
-  position: relative;
-`;
-
-const EditTitle = styled.h1`
-  color: #222831;
-  font-family: "Noto Sans TC", sans-serif;
-  font-weight: bold;
-  margin-bottom: 30px;
-`;
+import {
+  EditWrapper,
+  EditContainer,
+  EditTitle,
+  EditInputBlock,
+  EditInput,
+  EditTextArea,
+  EditSubmitBtn,
+  AlertMsg,
+} from "../WritePage";
 
 const EditForm = styled.form``;
-
-const EditInputBlock = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-`;
-
-const EditInput = styled.input`
-  border: solid 1px #818285;
-  padding: 3px;
-  height: 30px;
-  width: 100%;
-`;
-
-const EditTextArea = styled.textarea`
-  border: solid 1px #818285;
-  padding: 3px;
-  min-height: 400px;
-  width: 100%;
-`;
-
-const EditSubmitBtn = styled.button`
-  position: absolute;
-  right: 30px;
-  bottom: 30px;
-  color: #222831;
-  font-family: "Noto Sans TC", sans-serif;
-  background: white;
-  border: solid 1px #818285;
-  padding: 5px 25px;
-  cursor: pointer;
-  &:hover {
-    background: #222831;
-    color: white;
-  }
-`;
-
-const AlertMsg = styled.div`
-  word-break: break-word;
-  font-size: 14px;
-  color: darkred;
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-align: right;
-`;
 
 export default function EditPage() {
   const [post, setPost] = useState(null);

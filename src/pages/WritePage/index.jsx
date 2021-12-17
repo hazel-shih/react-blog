@@ -5,18 +5,22 @@ import { publishPost } from "../../WebAPI";
 import { useHistory } from "react-router";
 import Footer from "../../components/Footer";
 import { AuthContext, GetUserContext } from "../../context";
+import { MEDIA_QUERY_MD } from "../../constants";
 
-const EditWrapper = styled(SectionWrapper)`
-  padding: 80px 300px 150px 300px;
+export const EditWrapper = styled(SectionWrapper)`
+  padding: 80px 100px 150px 100px;
+  ${MEDIA_QUERY_MD} {
+    padding: 80px 30px 150px 30px;
+  }
 `;
 
-const EditContainer = styled.div`
+export const EditContainer = styled.div`
   border: solid 1px #818285;
   padding: 30px 30px 70px 30px;
   position: relative;
 `;
 
-const EditTitle = styled.h1`
+export const EditTitle = styled.h1`
   color: #222831;
   font-family: "Noto Sans TC", sans-serif;
   font-weight: bold;
@@ -25,27 +29,27 @@ const EditTitle = styled.h1`
 
 const EditForm = styled.form``;
 
-const EditInputBlock = styled.div`
+export const EditInputBlock = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 30px;
 `;
 
-const EditInput = styled.input`
+export const EditInput = styled.input`
   border: solid 1px #818285;
   padding: 3px;
   height: 30px;
   width: 100%;
 `;
 
-const EditTextArea = styled.textarea`
+export const EditTextArea = styled.textarea`
   border: solid 1px #818285;
   padding: 3px;
   min-height: 400px;
   width: 100%;
 `;
 
-const EditSubmitBtn = styled.button`
+export const EditSubmitBtn = styled.button`
   position: absolute;
   right: 30px;
   bottom: 30px;
@@ -61,7 +65,7 @@ const EditSubmitBtn = styled.button`
   }
 `;
 
-const AlertMsg = styled.div`
+export const AlertMsg = styled.div`
   word-break: break-word;
   font-size: 14px;
   color: darkred;

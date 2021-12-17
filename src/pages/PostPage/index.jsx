@@ -5,9 +5,13 @@ import PostInfo from "../../components/PostInfo";
 import { getOnePost } from "../../WebAPI";
 import { useParams } from "react-router";
 import Footer from "../../components/Footer";
+import { MEDIA_QUERY_MD } from "../../constants";
 
 const PostWrapper = styled.section`
-  padding: 80px 20%;
+  padding: 80px 100px 120px 100px;
+  ${MEDIA_QUERY_MD} {
+    padding: 80px 30px 120px 30px;
+  }
 `;
 
 const PostContent = styled.div`

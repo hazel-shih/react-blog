@@ -31,7 +31,7 @@ function Banner() {
   return (
     <BannerContainer>
       <BannerInfoContainer>
-        <BannerTitle children="純粹靠北之地" />
+        <BannerTitle children="歡迎光臨　V(=^･ω･^=)v" />
         <BannerSubTitle children="WELCOME TO MY BLOG" />
       </BannerInfoContainer>
     </BannerContainer>

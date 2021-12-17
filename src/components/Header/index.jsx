@@ -3,13 +3,16 @@ import styled from "styled-components";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context";
 import { GetUserContext } from "../../components/App";
+import { MEDIA_QUERY_MD } from "../../constants";
+import HamburgerMenu from "./HamburgerMenu";
 
 const HeaderContainer = styled.header`
   height: 54px;
-  padding: 35px 100px;
+  padding: 35px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 `;
 
 const NavBarPartContainer = styled.div`
@@ -20,7 +23,7 @@ const NavBarPartContainer = styled.div`
 const Logo = styled(Link)`
   margin: 0;
   font-family: "Open Sans Condensed", sans-serif;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
   margin-right: 45px;
   color: #222831;
@@ -32,8 +35,12 @@ const NavBarLink = styled(Link)`
   color: #484e57;
   cursor: pointer;
   font-family: "Noto Sans TC", sans-serif;
+  border-bottom: 2px solid transparent;
   & + & {
     margin-left: 45px;
+  }
+  ${MEDIA_QUERY_MD} {
+    display: none;
   }
 `;
 
@@ -64,6 +71,7 @@ function Header() {
     <HeaderContainer>
       <NavBarPartContainer>
         <Logo to="/">Hazel's Blog</Logo>
+        <HamburgerMenu />
         <NavBarLink
           style={nowPath === "/" ? isNowPathStyle : {}}
           to="/"

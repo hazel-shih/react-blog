@@ -13,6 +13,9 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  ${MEDIA_QUERY_MD} {
+    padding: 35px 30px;
+  }
 `;
 
 const NavBarPartContainer = styled.div`
@@ -23,11 +26,15 @@ const NavBarPartContainer = styled.div`
 const Logo = styled(Link)`
   margin: 0;
   font-family: "Open Sans Condensed", sans-serif;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   margin-right: 45px;
   color: #222831;
   cursor: pointer;
+  ${MEDIA_QUERY_MD} {
+    margin-right: 0px;
+    width: max-content;
+  }
 `;
 
 const NavBarLink = styled(Link)`

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   width: 100%;
-  height: 40px;
+  min-height: 40px;
   background: linear-gradient(35deg, #f8f18d, #e1f5c4);
   color: #222831;
   font-family: "Noto Sans TC", sans-serif;
@@ -12,6 +12,10 @@ const StyledFooter = styled.footer`
   justify-content: center;
   position: absolute;
   bottom: 0;
+  font-size: 13px;
+  letter-spacing: 1px;
+  overflow-wrap: break-word;
+  padding: 5px;
 `;
 
 function Footer() {

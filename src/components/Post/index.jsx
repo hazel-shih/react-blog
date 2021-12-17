@@ -20,7 +20,7 @@ const PostImgContainer = styled.div`
   max-width: 350px;
   height: auto;
   ${MEDIA_QUERY_MD} {
-    max-width: 300px;
+    display: none;
   }
 `;
 
@@ -35,6 +35,10 @@ const PostPartContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  ${MEDIA_QUERY_MD} {
+    width: 100%;
+    margin-left: 0px;
+  }
 `;
 
 const PostContent = styled.div`

@@ -4,37 +4,48 @@ import SectionWrapper from "../../components/SectionWrapper";
 import SectionTitle from "../../components/SectionTitle";
 import hazel from "../../img/hazel.jpg";
 import Footer from "../../components/Footer";
+import { MEDIA_QUERY_MD } from "../../constants";
 
-const AboutMeWrapper = styled(SectionWrapper)`
-  height: 100%;
-`;
+const AboutMeWrapper = styled(SectionWrapper)``;
 
 const AboutMeContainer = styled.div`
   display: flex;
   align-items: center;
+  ${MEDIA_QUERY_MD} {
+    flex-direction: column;
+  }
 `;
 
-const Avatar = styled.div`
+const Avatar = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: url(${hazel}) no-repeat center / 200px;
   margin-right: 40px;
+  ${MEDIA_QUERY_MD} {
+    margin-right: 0px;
+    margin-bottom: 30px;
+  }
 `;
 
 const TalkBubble = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
   border: 1px solid #222831;
-  width: 60%;
+  width: fix-content;
   border-radius: 50px;
   color: #222831;
   font-family: "Noto Sans TC", sans-serif;
   font-weight: bold;
   font-size: 30px;
   padding: 30px;
+  ${MEDIA_QUERY_MD} {
+    border: none;
+    font-size: 25px;
+    padding: 0px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
 `;
 
 export default function AboutPage() {
@@ -43,7 +54,7 @@ export default function AboutPage() {
       <AboutMeWrapper>
         <SectionTitle title="關於我" />
         <AboutMeContainer>
-          <Avatar imgUrl={hazel} />
+          <Avatar src={hazel} />
           <TalkBubble>
             哈囉我是 Hazel！
             <br />

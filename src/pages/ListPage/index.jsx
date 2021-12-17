@@ -13,9 +13,13 @@ import Loading from "../../components/Loading/loading";
 import Footer from "../../components/Footer";
 import { getPreText } from "../../utils";
 import { POST_PER_PAGE as perPage } from "../../constants";
+import { MEDIA_QUERY_MD } from "../../constants";
 
 const ListPageWrapper = styled(SectionWrapper)`
-  padding: 40px 100px;
+  padding: 40px 60px;
+  ${MEDIA_QUERY_MD} {
+    padding: 40px 30px;
+  }
 `;
 
 function ListPage() {

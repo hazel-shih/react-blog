@@ -36,10 +36,10 @@ const Line = styled.div`
 
 const LinkContainer = styled.div`
   position: absolute;
-  top: 75px;
+  top: 70px;
   right: 0;
   background: #484e57;
-  width: 45%;
+  width: fit-content;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -52,12 +52,15 @@ const LinkContainer = styled.div`
 const NavLink = styled(Link)`
   text-decoration: none;
   color: white;
-  font-size: 20px;
-  padding: 5px;
+  font-size: 18px;
+  padding: 5px 8px;
   margin-bottom: 10px;
   :hover {
     background: #f8f18d;
     color: #484e57;
+  }
+  :last-child {
+    margin-bottom: 0px;
   }
 `;
 

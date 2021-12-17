@@ -20,6 +20,7 @@ const BannerTitle = styled.h1`
   font-family: "Noto Sans TC", sans-serif;
   font-size: 25px;
   color: #222831;
+  width: max-content;
 `;
 
 const BannerSubTitle = styled.p`
@@ -31,7 +32,7 @@ function Banner() {
   return (
     <BannerContainer>
       <BannerInfoContainer>
-        <BannerTitle children="歡迎光臨　V(=^･ω･^=)v" />
+        <BannerTitle children="歡迎光臨　(=^･ω･^=)" />
         <BannerSubTitle children="WELCOME TO MY BLOG" />
       </BannerInfoContainer>
     </BannerContainer>

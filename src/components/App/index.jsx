@@ -51,7 +51,7 @@ function App() {
               <Route path="/about">
                 <AboutPage />
               </Route>
-              <Route exact path="/list">
+              <Route exact path="/list/page/:currentPage">
                 <ListPage />
               </Route>
               <Route path="/list/page/:pageNum">

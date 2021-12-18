@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
 import SectionWrapper from "../../components/SectionWrapper";
 import { getMyPosts } from "../../WebAPI";
 import { AuthContext, GetUserContext } from "../../context";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Pagination from "../../Pagination/Pagination";
 import Loading from "../../components/Loading/loading";
 import Footer from "../../components/Footer";
@@ -18,6 +18,7 @@ const ListPageWrapper = styled(SectionWrapper)`
 
 function ListPage() {
   window.scrollTo(0, 0);
+  const { currentPage } = useParams();
   const { user } = useContext(AuthContext);
   const { isGettingUser } = useContext(GetUserContext);
   const [showPosts, setShowPosts] = useState([]);
@@ -32,9 +33,9 @@ function ListPage() {
     }
   }, [history, isGettingUser, user]);
 
-  const getPosts = useCallback(
-    (pageNum) => {
-      getMyPosts(user.id, perPage, pageNum)
+  useEffect(() => {
+    if (user) {
+      getMyPosts(user.id, perPage, currentPage)
         .then((res) => {
           setTotalPostCount(res.headers.get("x-total-count"));
           return res.json();
@@ -43,13 +44,8 @@ function ListPage() {
           setShowPosts(posts);
           setIsLoadingPosts(false);
         });
-    },
-    [user]
-  );
-
-  useEffect(() => {
-    if (user) getPosts(pageNum);
-  }, [getPosts, pageNum, user]);
+    }
+  }, [currentPage, user]);
 
   return (
     <>
@@ -75,9 +71,8 @@ function ListPage() {
                         preText={`${getPreText(post.body)} ...`}
                         edit={true}
                         showPosts={showPosts}
-                        getPosts={getPosts}
-                        pageNum={pageNum}
-                        setPageNum={setPageNum}
+                        setShowPosts={setShowPosts}
+                        currentPage={Number(currentPage)}
                       />
                     );
                   })}
@@ -90,7 +85,7 @@ function ListPage() {
                     route="/list/page"
                   />
                 )}
-                {Number(totalPostCount) === 0 && (
+                {(Number(totalPostCount) === 0 || showPosts.length === 0) && (
                   <div>尚無發表任何文章，快來寫新文章吧！</div>
                 )}
               </>

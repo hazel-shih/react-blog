@@ -69,9 +69,8 @@ function Post({
   linkPath,
   edit,
   showPosts,
-  getPosts,
-  pageNum,
-  setPageNum,
+  setShowPosts,
+  currentPage,
 }) {
   let history = useHistory();
   const deleteMyPost = async (postId) => {
@@ -79,11 +78,10 @@ function Post({
     if (!confirm) return;
     await deletePost(postId);
     let newShowPosts = showPosts.filter((post) => post.id !== postId);
-    if (newShowPosts.length === 0 && pageNum !== 1) {
-      history.push(`/list/page/${pageNum - 1}`);
-      setPageNum(pageNum - 1);
+    if (newShowPosts.length === 0 && currentPage !== 1) {
+      history.push(`/list/page/${currentPage - 1}`);
     } else {
-      getPosts(pageNum);
+      setShowPosts(newShowPosts);
     }
   };
   return (

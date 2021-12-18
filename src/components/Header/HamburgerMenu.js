@@ -125,7 +125,7 @@ function HamburgerMenu() {
           )}
           {user && (
             <>
-              <NavLink onClick={handleCloseMenu} to="/list">
+              <NavLink onClick={handleCloseMenu} to="/list/page/1">
                 管理我的文章
               </NavLink>
               <NavLink onClick={handleCloseMenu} to="/write">

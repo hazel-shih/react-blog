@@ -96,7 +96,10 @@ function Header() {
             </>
           ) : (
             <>
-              <NavBarLink $isCurrentLink={nowPath === "/list"} to="/list">
+              <NavBarLink
+                $isCurrentLink={nowPath === "/list/page/1"}
+                to="/list/page/1"
+              >
                 管理我的文章
               </NavBarLink>
               <NavBarLink $isCurrentLink={nowPath === "/write"} to="/write">

@@ -14,6 +14,7 @@ const Page = styled.div`
     color: #8bcdcd;
     border: 1px solid #8bcdcd;
   }
+  ${(props) => props.isCurrentPage && `background: #8bcdcd; color: white`}
 `;
 
 export default Page;

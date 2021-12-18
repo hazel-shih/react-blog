@@ -23,9 +23,8 @@ function App() {
       setIsGettingUser(false);
       return;
     }
-
     getMe().then((res) => {
-      if (res.ok !== 1) {
+      if (!res.ok) {
         localStorage.setItem("token", "");
         setIsGettingUser(false);
         return;

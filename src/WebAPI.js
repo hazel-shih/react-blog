@@ -25,6 +25,7 @@ export const getMyPosts = (userId, perPage, page) => {
     _order: "desc",
     _limit: perPage,
     _page: page,
+    _expand: "user",
   };
   let queryString = [];
   for (let key in query) {

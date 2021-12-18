@@ -11,6 +11,7 @@ const AboutMeWrapper = styled(SectionWrapper)``;
 const AboutMeContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   ${MEDIA_QUERY_MD} {
     flex-direction: column;
   }

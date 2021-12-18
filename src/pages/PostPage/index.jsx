@@ -8,9 +8,9 @@ import Footer from "../../components/Footer";
 import { MEDIA_QUERY_MD } from "../../constants";
 
 const PostWrapper = styled.section`
-  padding: 80px 100px 120px 100px;
+  padding: 80px 100px 180px 100px;
   ${MEDIA_QUERY_MD} {
-    padding: 80px 30px 120px 30px;
+    padding: 80px 30px 180px 30px;
   }
 `;
 
@@ -18,6 +18,7 @@ const PostContent = styled.div`
   color: #222831;
   font-family: "Noto Sans TC", sans-serif;
   font-size: 15px;
+  white-space: pre-wrap;
 `;
 
 const PostTitleInPostPage = styled(PostTitle)`

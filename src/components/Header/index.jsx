@@ -49,11 +49,8 @@ const NavBarLink = styled(Link)`
   ${MEDIA_QUERY_MD} {
     display: none;
   }
+  ${(props) => props.$isCurrentLink && `border-bottom: 2px solid #f8f18d;`}
 `;
-
-const isNowPathStyle = {
-  borderBottom: "2px solid #f8f18d",
-};
 
 function Header() {
   const { user, setUser } = useContext(AuthContext);
@@ -73,51 +70,44 @@ function Header() {
       history.push("/");
     }
   };
-
   return (
     <HeaderContainer>
       <NavBarPartContainer>
         <Logo to="/">Hazel's Blog</Logo>
         <HamburgerMenu />
-        <NavBarLink
-          style={nowPath === "/" ? isNowPathStyle : {}}
-          to="/"
-          children="首頁"
-        />
-        <NavBarLink
-          style={nowPath === "/about" ? isNowPathStyle : {}}
-          to="/about"
-          children="關於我"
-        />
+        <NavBarLink $isCurrentLink={nowPath === "/"} to="/">
+          首頁
+        </NavBarLink>
+        <NavBarLink $isCurrentLink={nowPath === "/about"} to="/about">
+          關於我
+        </NavBarLink>
       </NavBarPartContainer>
       {!isGettingUser && (
         <NavBarPartContainer>
           {!user ? (
             <>
               <NavBarLink
-                style={nowPath === "/register" ? isNowPathStyle : {}}
+                $isCurrentLink={nowPath === "/register"}
                 to="/register"
-                children="註冊"
-              />
-              <NavBarLink
-                style={nowPath === "/login" ? isNowPathStyle : {}}
-                to="/login"
-                children="登入"
-              />
+              >
+                註冊
+              </NavBarLink>
+
+              <NavBarLink $isCurrentLink={nowPath === "/login"} to="/login">
+                登入
+              </NavBarLink>
             </>
           ) : (
             <>
-              <NavBarLink
-                style={nowPath === "/list" ? isNowPathStyle : {}}
-                to="/list"
-                children="管理我的文章"
-              />
-              <NavBarLink
-                style={nowPath === "/write" ? isNowPathStyle : {}}
-                to="/write"
-                children="發布文章"
-              />
-              <NavBarLink to="/" onClick={handleLogout} children="登出" />
+              <NavBarLink $isCurrentLink={nowPath === "/list"} to="/list">
+                管理我的文章
+              </NavBarLink>
+              <NavBarLink $isCurrentLink={nowPath === "/write"} to="/write">
+                發布文章
+              </NavBarLink>
+              <NavBarLink to="/" onClick={handleLogout}>
+                登出
+              </NavBarLink>
             </>
           )}
         </NavBarPartContainer>

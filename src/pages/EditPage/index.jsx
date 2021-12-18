@@ -55,7 +55,7 @@ export default function EditPage() {
         return;
       }
       setIsLoading(false);
-      history.push("/list");
+      history.push(`/post/${post.id}`);
     });
   }
 

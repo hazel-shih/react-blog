@@ -23,7 +23,6 @@ function ListPage() {
   const { isGettingUser } = useContext(GetUserContext);
   const [showPosts, setShowPosts] = useState([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
-  const [pageNum, setPageNum] = useState(1);
   const [totalPostCount, setTotalPostCount] = useState(0);
   const history = useHistory();
   useEffect(() => {
@@ -84,9 +83,8 @@ function ListPage() {
                 {totalPostCount > perPage && (
                   <Pagination
                     totalPostCount={totalPostCount}
-                    pageNum={Number(pageNum)}
+                    pageNum={Number(currentPage)}
                     perPage={perPage}
-                    setPageNum={setPageNum}
                     route="/list/page"
                   />
                 )}

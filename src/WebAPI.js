@@ -21,8 +21,8 @@ export const getMyPosts = (userId, perPage, page) => {
   let url = BASE_URL + "/posts?";
   let query = {
     _sort: "createdAt",
-    userId,
     _order: "desc",
+    userId,
     _limit: perPage,
     _page: page,
     _expand: "user",
@@ -34,9 +34,8 @@ export const getMyPosts = (userId, perPage, page) => {
   url += queryString.join("&");
   return fetch(url);
 };
-
 export const getOnePost = (id) => {
-  return fetch(`${BASE_URL}/posts?id=${id}`)
+  return fetch(`${BASE_URL}/posts?id=${id}&_expand=user`)
     .then((res) => {
       if (res.ok) {
         return res.json();
@@ -141,7 +140,6 @@ export const editPost = (id, title, body) => {
     body: JSON.stringify({
       title,
       body,
-      createdAt: Date.now(),
     }),
   })
     .then((res) => {

@@ -6,39 +6,42 @@ import { AuthContext } from "../../context";
 import SectionWrapper from "../../components/SectionWrapper";
 import Footer from "../../components/Footer";
 
-const LoginWrapper = styled(SectionWrapper)`
-  padding: 5% 100px;
+export const LoginWrapper = styled(SectionWrapper)`
+  padding: 100px 100px 150px 100px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const LoginContainer = styled.form`
+export const LoginContainer = styled.form`
   border: solid 1px #222831;
-  width: 30%;
+  min-width: 300px;
   padding: 30px 40px 40px 40px;
   text-align: center;
 `;
 
-const LoginTitle = styled.h1`
+export const LoginTitle = styled.h1`
   color: #222831;
 `;
 
-const LoginInputContainer = styled.div`
+export const LoginInputContainer = styled.div`
   text-align: left;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 `;
 
-const LoginLabel = styled.label`
+export const LoginLabel = styled.label`
   color: #222831;
   margin-bottom: 3px;
 `;
 
-const LoginInput = styled.input``;
+export const LoginInput = styled.input`
+  height: 25px;
+  padding: 3px;
+`;
 
-const LoginBtn = styled.button`
+export const LoginBtn = styled.button`
   margin-top: 40px;
   color: white;
   background: #222831;
@@ -53,7 +56,7 @@ const LoginBtn = styled.button`
   }
 `;
 
-const AlertMsg = styled.div`
+export const AlertMsg = styled.div`
   word-break: break-word;
   font-size: 14px;
   color: darkred;

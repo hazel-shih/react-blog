@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 
 function Pagination({ totalPostCount, pageNum, perPage, setPageNum, route }) {
   const totalPage = useRef(
-    Array.apply(null, Array(Math.ceil(totalPostCount.current / perPage))).map(
+    Array.apply(null, Array(Math.ceil(totalPostCount / perPage))).map(
       (x, i) => i + 1
     )
   );
@@ -41,7 +41,7 @@ function Pagination({ totalPostCount, pageNum, perPage, setPageNum, route }) {
             <Page isCurrentPage={pageNum === page}>{page}</Page>
           </Link>
         ))}
-      {pageNum < Math.ceil(totalPostCount.current / perPage) && (
+      {pageNum < Math.ceil(totalPostCount / perPage) && (
         <Link
           key={nanoid()}
           to={`${route}/${pageNum + 1}`}

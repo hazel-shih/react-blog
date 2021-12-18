@@ -1,33 +1,29 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
 import SectionWrapper from "../../components/SectionWrapper";
 import { getMyPosts } from "../../WebAPI";
 import { AuthContext, GetUserContext } from "../../context";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Pagination from "../../Pagination/Pagination";
 import Loading from "../../components/Loading/loading";
 import Footer from "../../components/Footer";
 import { getPreText } from "../../utils";
 import { POST_PER_PAGE as perPage } from "../../constants";
-import { MEDIA_QUERY_MD } from "../../constants";
 
 const ListPageWrapper = styled(SectionWrapper)`
-  padding: 40px 60px;
-  ${MEDIA_QUERY_MD} {
-    padding: 40px 30px;
-  }
+  padding-bottom: 110px;
 `;
 
 function ListPage() {
+  window.scrollTo(0, 0);
   const { user } = useContext(AuthContext);
   const { isGettingUser } = useContext(GetUserContext);
   const [showPosts, setShowPosts] = useState([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   const [pageNum, setPageNum] = useState(1);
-  const { pathname } = useLocation();
-  const totalPostCount = useRef(0);
+  const [totalPostCount, setTotalPostCount] = useState(0);
   const history = useHistory();
   useEffect(() => {
     if (!isGettingUser && !user) {
@@ -35,23 +31,25 @@ function ListPage() {
       history.push("/");
     }
   }, [history, isGettingUser, user]);
-  useEffect(() => {
-    if (user) {
+
+  const getPosts = useCallback(
+    (pageNum) => {
       getMyPosts(user.id, perPage, pageNum)
         .then((res) => {
-          totalPostCount.current = res.headers.get("x-total-count");
+          setTotalPostCount(res.headers.get("x-total-count"));
           return res.json();
         })
         .then((posts) => {
           setShowPosts(posts);
           setIsLoadingPosts(false);
         });
-    }
-  }, [pageNum, user]);
+    },
+    [user]
+  );
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (user) getPosts(pageNum);
+  }, [getPosts, pageNum, user]);
 
   return (
     <>
@@ -63,7 +61,7 @@ function ListPage() {
               <Loading />
             ) : (
               <>
-                {showPosts &&
+                {showPosts.length !== 0 &&
                   showPosts.map((post) => {
                     return (
                       <Post
@@ -76,16 +74,25 @@ function ListPage() {
                         createdAt={new Date(post.createdAt).toLocaleString()}
                         preText={`${getPreText(post.body)} ...`}
                         edit={true}
+                        showPosts={showPosts}
+                        getPosts={getPosts}
+                        pageNum={pageNum}
+                        setPageNum={setPageNum}
                       />
                     );
                   })}
-                <Pagination
-                  totalPostCount={totalPostCount}
-                  pageNum={Number(pageNum)}
-                  perPage={perPage}
-                  setPageNum={setPageNum}
-                  route="/list/page"
-                />
+                {totalPostCount > perPage && (
+                  <Pagination
+                    totalPostCount={totalPostCount}
+                    pageNum={Number(pageNum)}
+                    perPage={perPage}
+                    setPageNum={setPageNum}
+                    route="/list/page"
+                  />
+                )}
+                {Number(totalPostCount) === 0 && (
+                  <div>尚無發表任何文章，快來寫新文章吧！</div>
+                )}
               </>
             )}
           </ListPageWrapper>

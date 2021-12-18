@@ -75,9 +75,6 @@ function Header() {
       <NavBarPartContainer>
         <Logo to="/">Hazel's Blog</Logo>
         <HamburgerMenu />
-        <NavBarLink $isCurrentLink={nowPath === "/"} to="/">
-          首頁
-        </NavBarLink>
         <NavBarLink $isCurrentLink={nowPath === "/about"} to="/about">
           關於我
         </NavBarLink>

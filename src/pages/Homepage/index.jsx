@@ -56,7 +56,7 @@ function HomePage() {
               );
             })}
             <Pagination
-              totalPostCount={totalPostCount}
+              totalPostCount={totalPostCount.current}
               pageNum={Number(pageNum)}
               perPage={perPage}
               setPageNum={setPageNum}

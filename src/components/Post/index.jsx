@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ReadMoreButton from "../ReadMoreButton";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PostInfo from "../PostInfo";
 import PostTitle from "../PostTitle";
 import EditButton from "../EditButton";
+import DeleteButton from "../DeleteButton";
 import { MEDIA_QUERY_MD } from "../../constants";
+import { deletePost } from "../../WebAPI";
 
 const PostContainer = styled.div`
   width: 100%;
@@ -53,6 +55,9 @@ const PostContent = styled.div`
   margin-bottom: 15px;
   word-break: break-all;
 `;
+const FlexBox = styled.div`
+  display: flex;
+`;
 
 function Post({
   imgSrc,
@@ -63,7 +68,24 @@ function Post({
   preText,
   linkPath,
   edit,
+  showPosts,
+  getPosts,
+  pageNum,
+  setPageNum,
 }) {
+  let history = useHistory();
+  const deleteMyPost = async (postId) => {
+    let confirm = window.confirm("Hey! 確定要刪除文章嗎？刪除後就不可回復囉！");
+    if (!confirm) return;
+    await deletePost(postId);
+    let newShowPosts = showPosts.filter((post) => post.id !== postId);
+    if (newShowPosts.length === 0 && pageNum !== 1) {
+      history.push(`/list/page/${pageNum - 1}`);
+      setPageNum(pageNum - 1);
+    } else {
+      getPosts(pageNum);
+    }
+  };
   return (
     <PostContainer>
       <PostImgContainer>
@@ -74,9 +96,12 @@ function Post({
         <PostInfo category={category} author={author} createdAt={createdAt} />
         <PostContent children={preText} />
         {edit ? (
-          <Link to={`/edit/${linkPath}`}>
-            <EditButton />
-          </Link>
+          <FlexBox>
+            <Link to={`/edit/${linkPath}`}>
+              <EditButton />
+            </Link>
+            <DeleteButton handleDeletePost={() => deleteMyPost(linkPath)} />
+          </FlexBox>
         ) : (
           <Link to={`/post/${linkPath}`}>
             <ReadMoreButton />

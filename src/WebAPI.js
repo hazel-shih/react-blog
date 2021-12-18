@@ -105,3 +105,14 @@ export const editPost = (id, title, body) => {
     }),
   }).then((res) => res.json());
 };
+
+export const deletePost = (postId) => {
+  const token = localStorage.getItem("token");
+  return fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+  }).then((res) => res.json());
+};

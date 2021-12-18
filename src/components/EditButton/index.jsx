@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = styled.button`
+export const Button = styled.button`
   color: #222831;
   font-family: "Noto Sans TC", sans-serif;
   font-weight: bold;
@@ -10,12 +10,12 @@ const Button = styled.button`
   font-size: 14px;
   cursor: pointer;
   width: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: #92c4dc;
   &:hover {
     background: #79a0b7;
+  }
+  :first-child {
+    margin-right: 20px;
   }
 `;
 

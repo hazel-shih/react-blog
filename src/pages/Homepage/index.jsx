@@ -3,7 +3,7 @@ import Post from "../../components/Post";
 import SectionTitle from "../../components/SectionTitle";
 import { getPosts } from "../../WebAPI";
 import SectionWrapper from "../../components/SectionWrapper";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Loading from "../../components/Loading/loading";
 import Footer from "../../components/Footer";
 import { getPreText } from "../../utils";
@@ -11,13 +11,19 @@ import { POST_PER_PAGE as perPage } from "../../constants";
 import Pagination from "../../Pagination/Pagination";
 
 function HomePage() {
-  const [pageNum, setPageNum] = useState(1);
+  const { currentPage } = useParams();
   const { pathname } = useLocation();
   const [showPosts, setShowPosts] = useState([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   const totalPostCount = useRef(0);
   useEffect(() => {
-    getPosts(perPage, pageNum)
+    let page;
+    if (!currentPage) {
+      page = 1;
+    } else {
+      page = currentPage;
+    }
+    getPosts(perPage, page)
       .then((res) => {
         totalPostCount.current = res.headers.get("x-total-count");
         return res.json();
@@ -26,7 +32,7 @@ function HomePage() {
         setShowPosts(posts);
         setIsLoadingPosts(false);
       });
-  }, [pageNum]);
+  }, [currentPage]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,13 +61,14 @@ function HomePage() {
                 />
               );
             })}
-            <Pagination
-              totalPostCount={totalPostCount.current}
-              pageNum={Number(pageNum)}
-              perPage={perPage}
-              setPageNum={setPageNum}
-              route="/page"
-            />
+            {totalPostCount.current > perPage && (
+              <Pagination
+                totalPostCount={totalPostCount.current}
+                pageNum={Number(currentPage)}
+                perPage={perPage}
+                route="/page"
+              />
+            )}
           </>
         )}
       </SectionWrapper>

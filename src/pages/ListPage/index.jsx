@@ -32,10 +32,10 @@ function ListPage() {
       history.push("/");
     }
   }, [history, isGettingUser, user]);
-
   useEffect(() => {
     if (user) {
-      getMyPosts(user.id, perPage, currentPage)
+      let page = currentPage ? currentPage : 1;
+      getMyPosts(user.id, perPage, page)
         .then((res) => {
           setTotalPostCount(res.headers.get("x-total-count"));
           return res.json();

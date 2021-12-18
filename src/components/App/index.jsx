@@ -45,16 +45,16 @@ function App() {
               <Route exact path="/">
                 <HomePage />
               </Route>
-              <Route path="/page/:pageNum">
+              <Route path="/page/:currentPage">
                 <HomePage />
               </Route>
               <Route path="/about">
                 <AboutPage />
               </Route>
-              <Route exact path="/list/page/:currentPage">
+              <Route exact path="/list">
                 <ListPage />
               </Route>
-              <Route path="/list/page/:pageNum">
+              <Route path="/list/page/:currentPage">
                 <ListPage />
               </Route>
               <Route path="/Register">

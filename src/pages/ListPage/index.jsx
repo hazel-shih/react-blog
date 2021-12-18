@@ -37,13 +37,18 @@ function ListPage() {
       let page = currentPage ? currentPage : 1;
       getMyPosts(user.id, perPage, page)
         .then((res) => {
-          setTotalPostCount(res.headers.get("x-total-count"));
-          return res.json();
+          if (res.ok) {
+            setTotalPostCount(res.headers.get("x-total-count"));
+            return res.json();
+          } else {
+            throw new Error("Fail to fetch");
+          }
         })
         .then((posts) => {
           setShowPosts(posts);
           setIsLoadingPosts(false);
-        });
+        })
+        .catch((err) => err);
     }
   }, [currentPage, user]);
 

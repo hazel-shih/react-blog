@@ -25,13 +25,18 @@ function HomePage() {
     }
     getPosts(perPage, page)
       .then((res) => {
-        totalPostCount.current = res.headers.get("x-total-count");
-        return res.json();
+        if (res.ok) {
+          totalPostCount.current = res.headers.get("x-total-count");
+          return res.json();
+        } else {
+          throw new Error("Fail to fetch");
+        }
       })
       .then((posts) => {
         setShowPosts(posts);
         setIsLoadingPosts(false);
-      });
+      })
+      .catch((err) => err);
   }, [currentPage]);
 
   useEffect(() => {

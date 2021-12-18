@@ -36,7 +36,15 @@ export const getMyPosts = (userId, perPage, page) => {
 };
 
 export const getOnePost = (id) => {
-  return fetch(`${BASE_URL}/posts?id=${id}`).then((res) => res.json());
+  return fetch(`${BASE_URL}/posts?id=${id}`)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Fail to fetch");
+      }
+    })
+    .catch((err) => err);
 };
 
 export const register = (nickname, username, password) => {
@@ -50,7 +58,15 @@ export const register = (nickname, username, password) => {
       username,
       password,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Fail to register");
+      }
+    })
+    .catch((err) => err);
 };
 
 export const login = (username, password) => {
@@ -63,7 +79,15 @@ export const login = (username, password) => {
       username,
       password,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Fail to register");
+      }
+    })
+    .catch((err) => err);
 };
 
 export const getMe = () => {
@@ -72,7 +96,15 @@ export const getMe = () => {
     headers: {
       authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Fail to get user");
+      }
+    })
+    .catch((err) => err);
 };
 
 export const publishPost = (title, body) => {
@@ -87,7 +119,15 @@ export const publishPost = (title, body) => {
       title,
       body,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Fail to publish");
+      }
+    })
+    .catch((err) => err);
 };
 
 export const editPost = (id, title, body) => {
@@ -103,7 +143,15 @@ export const editPost = (id, title, body) => {
       body,
       createdAt: Date.now(),
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Fail to edit");
+      }
+    })
+    .catch((err) => err);
 };
 
 export const deletePost = (postId) => {
@@ -114,5 +162,13 @@ export const deletePost = (postId) => {
       authorization: `Bearer ${token}`,
       "content-type": "application/json",
     },
-  }).then((res) => res.json());
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Fail to delete");
+      }
+    })
+    .catch((err) => err);
 };
